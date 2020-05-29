@@ -30,8 +30,6 @@ import compare, { COMPARISON, GuessComparison } from "../game-logic/compare";
 
 @Component
 export default class Game extends Vue {
-  //   name: "Game",
-
   public target: string = "apple";
   public guess: string = "";
   public guessComparisons: Array<Array<GuessComparison>> = Array();
@@ -41,10 +39,10 @@ export default class Game extends Vue {
     this.guessComparisons.push(guessComparison);
     this.guess = "";
   }
-  letterClass() {
+  letterClass(letterComparison: COMPARISON) {
     return {
-      correct: COMPARISON.CORRECT == 2,
-      misplaced: COMPARISON.MISPLACED == 1
+      correct: COMPARISON.CORRECT == letterComparison,
+      misplaced: COMPARISON.MISPLACED == letterComparison
     };
   }
 }
@@ -58,6 +56,6 @@ li.guess {
   color: red;
 }
 .misplaced {
-  color: yellow;
+  color: #baa72c;
 }
 </style>
