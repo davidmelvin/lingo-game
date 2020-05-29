@@ -27,10 +27,11 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import compare, { COMPARISON, GuessComparison } from "../game-logic/compare";
+import { fiveLetterWords } from "../game-logic/words";
 
 @Component
 export default class Game extends Vue {
-  public target: string = "apple";
+  public target: string = fiveLetterWords[Math.floor(Math.random() * fiveLetterWords.length)];
   public guess: string = "";
   public guessComparisons: Array<Array<GuessComparison>> = Array();
 
