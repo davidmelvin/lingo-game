@@ -16,6 +16,7 @@ export class GameState {
   public score = 0;
   public guessComparisons: Array<Array<GuessComparison>> = Array();
   correctResult: Array<GuessComparison> = Array();
+  public isGameOver = false;
 
   // TODO: don't repeat targets!
   private updateTarget() {
@@ -24,6 +25,9 @@ export class GameState {
   }
 
   private advanceRound() {
+    if (this.currRoundNumber === this.totalRounds) {
+      this.isGameOver = true;
+    }
     this.currRoundNumber += 1;
     this.guessComparisons = [];
     this.updateTarget();

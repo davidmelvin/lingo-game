@@ -10,6 +10,7 @@ export class GameState {
         this.score = 0;
         this.guessComparisons = Array();
         this.correctResult = Array();
+        this.isGameOver = false;
         this.totalRounds = totalRounds;
         this.wordLength = wordLength;
         this.updateTarget();
@@ -21,6 +22,9 @@ export class GameState {
         this.correctResult = correctResult(this.target);
     }
     advanceRound() {
+        if (this.currRoundNumber === this.totalRounds) {
+            this.isGameOver = true;
+        }
         this.currRoundNumber += 1;
         this.guessComparisons = [];
         this.updateTarget();
