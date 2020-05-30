@@ -1,5 +1,5 @@
 import { fiveLetterWords } from "./words";
-import compare from "../game-logic/compare";
+import { getComparison, correctResult, isCorrectGuess } from "../game-logic/compare";
 export class GameState {
     constructor({ totalRounds = 5, wordLength = 5 }) {
         this.totalRounds = 5;
@@ -9,15 +9,31 @@ export class GameState {
         this.target = "";
         this.score = 0;
         this.guessComparisons = Array();
+        this.correctResult = Array();
         this.totalRounds = totalRounds;
         this.wordLength = wordLength;
-        this.target = fiveLetterWords[Math.floor(Math.random() * fiveLetterWords.length)];
+        this.updateTarget();
         this.targetWordsUsed.push(this.target);
     }
-    submitGuess(guess) {
-        const guessComparison = compare({ guess, target: this.target });
-        this.guessComparisons.push(guessComparison);
+    // TODO: don't repeat targets!
+    updateTarget() {
+        this.target = fiveLetterWords[Math.floor(Math.random() * fiveLetterWords.length)];
+        this.correctResult = correctResult(this.target);
+    }
+    advanceRound() {
         this.currRoundNumber += 1;
+        this.guessComparisons = [];
+        this.updateTarget();
+    }
+    submitGuess(guess) {
+        const guessComparison = getComparison({ guess, target: this.target });
+        this.guessComparisons.push(guessComparison);
+        console.log("guesscomparison: ", guessComparison);
+        console.log("this.correctresult: ", this.correctResult);
+        if (isCorrectGuess(guessComparison)) {
+            console.log("correct!");
+            this.advanceRound();
+        }
     }
 }
 //# sourceMappingURL=gameLogic.js.map

@@ -27,7 +27,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import compare, { COMPARISON, GuessComparison } from "../game-logic/compare";
+import { COMPARISON, GuessComparison } from "../game-logic/compare";
 import { fiveLetterWords } from "../game-logic/words";
 import { GameState } from "../game-logic/gameLogic";
 

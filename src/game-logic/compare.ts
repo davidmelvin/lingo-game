@@ -12,7 +12,13 @@ export interface GuessComparison {
 // should I return a tuple for fixed length?
 // TODO needs to be updated to account for multiple occurences of the same letter
 // i.e., apple vs asdfa should only match the first 'a' not the 2nd
-const compare = ({ target, guess }: { target: string; guess: string }): Array<GuessComparison> => {
+export const getComparison = ({
+  target,
+  guess
+}: {
+  target: string;
+  guess: string;
+}): Array<GuessComparison> => {
   const result = new Array<GuessComparison>(target.length);
   for (let i = 0; i < target.length; i++) {
     const guessChar = guess[i];
@@ -27,4 +33,12 @@ const compare = ({ target, guess }: { target: string; guess: string }): Array<Gu
   return result;
 };
 
-export default compare;
+export const correctResult = (target: string): Array<GuessComparison> => {
+  return [...target].map(c => {
+    return { letter: c, comparison: COMPARISON.CORRECT };
+  });
+};
+
+export const isCorrectGuess = (guessComparison: GuessComparison[]): boolean => {
+  return guessComparison.every(({ comparison }) => comparison === COMPARISON.CORRECT);
+};

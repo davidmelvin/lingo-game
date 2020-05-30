@@ -7,7 +7,7 @@ export var COMPARISON;
 // should I return a tuple for fixed length?
 // TODO needs to be updated to account for multiple occurences of the same letter
 // i.e., apple vs asdfa should only match the first 'a' not the 2nd
-const compare = ({ target, guess }) => {
+export const getComparison = ({ target, guess }) => {
     const result = new Array(target.length);
     for (let i = 0; i < target.length; i++) {
         const guessChar = guess[i];
@@ -23,5 +23,12 @@ const compare = ({ target, guess }) => {
     }
     return result;
 };
-export default compare;
+export const correctResult = (target) => {
+    return [...target].map(c => {
+        return { letter: c, comparison: COMPARISON.CORRECT };
+    });
+};
+export const isCorrectGuess = (guessComparison) => {
+    return guessComparison.every(({ comparison }) => comparison === COMPARISON.CORRECT);
+};
 //# sourceMappingURL=compare.js.map
