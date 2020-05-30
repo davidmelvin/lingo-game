@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>Round: {{ currRound }}/ {{ totalRounds }}</h1>
     <h1>Target: {{ target }}</h1>
     <ol>
       <li class="guess" v-for="(guessComparison, index) in guessComparisons" :key="index">
@@ -28,18 +29,31 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import compare, { COMPARISON, GuessComparison } from "../game-logic/compare";
 import { fiveLetterWords } from "../game-logic/words";
+import { GameState } from "../game-logic/gameLogic";
 
 @Component
 export default class Game extends Vue {
-  public target: string = fiveLetterWords[Math.floor(Math.random() * fiveLetterWords.length)];
   public guess: string = "";
-  public guessComparisons: Array<Array<GuessComparison>> = Array();
+  gameState = new GameState({ totalRounds: 5, wordLength: 5 });
+  public totalRounds = this.gameState.totalRounds;
+
+  get currRound() {
+    return this.gameState.currRoundNumber;
+  }
+
+  get guessComparisons() {
+    return this.gameState.guessComparisons;
+  }
+
+  get target() {
+    return this.gameState.target;
+  }
 
   submitGuess() {
-    const guessComparison = compare(this.target, this.guess);
-    this.guessComparisons.push(guessComparison);
+    this.gameState.submitGuess(this.guess);
     this.guess = "";
   }
+
   letterClass(letterComparison: COMPARISON) {
     return {
       correct: COMPARISON.CORRECT == letterComparison,

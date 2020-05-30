@@ -46,4 +46,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - improve performances for large multiplayer sessions
 - graphics/styling
 - input validation
+- add a bott for simulated multiplayer
+- store game state in database (maybe Firebase to fix disconnects)
 - http://buildnewgames.com/optimizing-websockets-bandwidth/
+- consider Redis for high availability if server crashes?
