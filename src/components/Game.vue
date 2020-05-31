@@ -6,7 +6,6 @@
       <h1>Target: {{ target }}</h1>
       <ol>
         <li class="guess" v-for="(guessComparison, index) in guessComparisons" :key="index">
-          <!--How to get GuessComparison interface here? -->
           <span
             v-for="(letterData, index2) in guessComparison"
             :key="index2"

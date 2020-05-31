@@ -34,6 +34,7 @@ export class GameState {
         this.guessComparisons.push(guessComparison);
         console.log("guesscomparison: ", guessComparison);
         console.log("this.correctresult: ", this.correctResult);
+        // should i short circuit and check if it's a correct guess straight away?
         if (isCorrectGuess(guessComparison)) {
             console.log("correct!");
             this.advanceRound();

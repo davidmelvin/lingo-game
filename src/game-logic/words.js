@@ -5414,7 +5414,6 @@ export const fiveLetterWords = [
     "owest",
     "bahts",
     "lossy",
-    "ftped",
     "hunky",
     "hoers",
     "slier",

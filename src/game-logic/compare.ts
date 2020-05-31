@@ -9,9 +9,17 @@ export interface GuessComparison {
   comparison: COMPARISON;
 }
 
+const getLetterCounts = (word: string) => {
+  let counts: { [letter: string]: number } = {};
+  [...word].forEach(letter => {
+    counts[letter] = (counts[letter] | 0) + 1;
+  });
+  return counts;
+};
 // should I return a tuple for fixed length?
 // TODO needs to be updated to account for multiple occurences of the same letter
 // i.e., apple vs asdfa should only match the first 'a' not the 2nd
+// TODO: needs lots of error checking and potentially a simpler output..
 export const getComparison = ({
   target,
   guess
@@ -20,16 +28,29 @@ export const getComparison = ({
   guess: string;
 }): Array<GuessComparison> => {
   const result = new Array<GuessComparison>(target.length);
+  let unmatchedTargetLetters = getLetterCounts(target);
+  console.log("before: ", unmatchedTargetLetters);
   for (let i = 0; i < target.length; i++) {
     const guessChar = guess[i];
     if (guessChar === target[i]) {
       result[i] = { letter: guessChar, comparison: COMPARISON.CORRECT };
-    } else if (target.includes(guess[i])) {
+    }
+    unmatchedTargetLetters[guessChar]--;
+  }
+  for (let i = 0; i < target.length; i++) {
+    const guessChar = guess[i];
+    if (result[i]) {
+      continue;
+    } else if (unmatchedTargetLetters[guessChar] >= 1) {
       result[i] = { letter: guessChar, comparison: COMPARISON.MISPLACED };
+      unmatchedTargetLetters[guessChar]--;
     } else {
       result[i] = { letter: guessChar, comparison: COMPARISON.INCORRECT };
     }
   }
+
+  console.log("after: ", unmatchedTargetLetters);
+
   return result;
 };
 
