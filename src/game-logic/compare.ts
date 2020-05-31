@@ -26,31 +26,27 @@ export const getComparison = ({
 }: {
   target: string;
   guess: string;
-}): Array<GuessComparison> => {
-  const result = new Array<GuessComparison>(target.length);
+}): Array<COMPARISON> => {
+  const result = new Array<COMPARISON>(target.length);
   let unmatchedTargetLetters = getLetterCounts(target);
-  console.log("before: ", unmatchedTargetLetters);
   for (let i = 0; i < target.length; i++) {
     const guessChar = guess[i];
     if (guessChar === target[i]) {
-      result[i] = { letter: guessChar, comparison: COMPARISON.CORRECT };
+      result[i] = COMPARISON.CORRECT;
+      unmatchedTargetLetters[guessChar]--;
     }
-    unmatchedTargetLetters[guessChar]--;
   }
   for (let i = 0; i < target.length; i++) {
     const guessChar = guess[i];
     if (result[i]) {
       continue;
     } else if (unmatchedTargetLetters[guessChar] >= 1) {
-      result[i] = { letter: guessChar, comparison: COMPARISON.MISPLACED };
+      result[i] = COMPARISON.MISPLACED;
       unmatchedTargetLetters[guessChar]--;
     } else {
-      result[i] = { letter: guessChar, comparison: COMPARISON.INCORRECT };
+      result[i] = COMPARISON.INCORRECT;
     }
   }
-
-  console.log("after: ", unmatchedTargetLetters);
-
   return result;
 };
 

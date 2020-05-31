@@ -18,13 +18,12 @@ const getLetterCounts = (word) => {
 export const getComparison = ({ target, guess }) => {
     const result = new Array(target.length);
     let unmatchedTargetLetters = getLetterCounts(target);
-    console.log("before: ", unmatchedTargetLetters);
     for (let i = 0; i < target.length; i++) {
         const guessChar = guess[i];
         if (guessChar === target[i]) {
-            result[i] = { letter: guessChar, comparison: COMPARISON.CORRECT };
+            result[i] = COMPARISON.CORRECT;
+            unmatchedTargetLetters[guessChar]--;
         }
-        unmatchedTargetLetters[guessChar]--;
     }
     for (let i = 0; i < target.length; i++) {
         const guessChar = guess[i];
@@ -32,14 +31,13 @@ export const getComparison = ({ target, guess }) => {
             continue;
         }
         else if (unmatchedTargetLetters[guessChar] >= 1) {
-            result[i] = { letter: guessChar, comparison: COMPARISON.MISPLACED };
+            result[i] = COMPARISON.MISPLACED;
             unmatchedTargetLetters[guessChar]--;
         }
         else {
-            result[i] = { letter: guessChar, comparison: COMPARISON.INCORRECT };
+            result[i] = COMPARISON.INCORRECT;
         }
     }
-    console.log("after: ", unmatchedTargetLetters);
     return result;
 };
 export const correctResult = (target) => {

@@ -50,3 +50,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - store game state in database (maybe Firebase to fix disconnects)
 - http://buildnewgames.com/optimizing-websockets-bandwidth/
 - consider Redis for high availability if server crashes?
+- update gitignore to not include .js and .js.map

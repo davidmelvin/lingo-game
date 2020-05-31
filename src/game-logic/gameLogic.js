@@ -1,5 +1,5 @@
 import { fiveLetterWords } from "./words";
-import { getComparison, correctResult, isCorrectGuess } from "../game-logic/compare";
+import { getComparison, correctResult } from "../game-logic/compare";
 export class GameState {
     constructor({ totalRounds = 5, wordLength = 5 }) {
         this.totalRounds = 5;
@@ -8,9 +8,10 @@ export class GameState {
         this.targetWordsUsed = Array();
         this.target = "";
         this.score = 0;
-        this.guessComparisons = Array();
         this.correctResult = Array();
         this.isGameOver = false;
+        this.guesses = Array();
+        this.guessComparisons = {};
         this.totalRounds = totalRounds;
         this.wordLength = wordLength;
         this.updateTarget();
@@ -26,19 +27,19 @@ export class GameState {
             this.isGameOver = true;
         }
         this.currRoundNumber += 1;
-        this.guessComparisons = [];
+        this.guesses = [];
+        this.guessComparisons = {};
         this.updateTarget();
     }
     submitGuess(guess) {
-        const guessComparison = getComparison({ guess, target: this.target });
-        this.guessComparisons.push(guessComparison);
-        console.log("guesscomparison: ", guessComparison);
-        console.log("this.correctresult: ", this.correctResult);
-        // should i short circuit and check if it's a correct guess straight away?
-        if (isCorrectGuess(guessComparison)) {
-            console.log("correct!");
+        this.guesses.push(guess);
+        if (guess === this.target) {
             this.advanceRound();
         }
+        this.guessComparisons[guess] = getComparison({ target: this.target, guess });
+    }
+    getComparisonAtIndex({ guess, index }) {
+        return this.guessComparisons[guess][index];
     }
 }
 //# sourceMappingURL=gameLogic.js.map

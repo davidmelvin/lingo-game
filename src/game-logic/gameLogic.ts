@@ -14,9 +14,10 @@ export class GameState {
   targetWordsUsed = Array();
   public target = "";
   public score = 0;
-  public guessComparisons: Array<Array<GuessComparison>> = Array();
   correctResult: Array<GuessComparison> = Array();
   public isGameOver = false;
+  public guesses: string[] = Array();
+  public guessComparisons: { [guess: string]: COMPARISON[] } = {};
 
   // TODO: don't repeat targets!
   private updateTarget() {
@@ -29,21 +30,17 @@ export class GameState {
       this.isGameOver = true;
     }
     this.currRoundNumber += 1;
-    this.guessComparisons = [];
+    this.guesses = [];
+    this.guessComparisons = {};
     this.updateTarget();
   }
 
   submitGuess(guess: string) {
-    const guessComparison = getComparison({ guess, target: this.target });
-    this.guessComparisons.push(guessComparison);
-    console.log("guesscomparison: ", guessComparison);
-    console.log("this.correctresult: ", this.correctResult);
-    // should i short circuit and check if it's a correct guess straight away?
-
-    if (isCorrectGuess(guessComparison)) {
-      console.log("correct!");
+    this.guesses.push(guess);
+    if (guess === this.target) {
       this.advanceRound();
     }
+    this.guessComparisons[guess] = getComparison({ target: this.target, guess });
   }
 
   constructor({ totalRounds = 5, wordLength = 5 }) {
@@ -51,5 +48,9 @@ export class GameState {
     this.wordLength = wordLength;
     this.updateTarget();
     this.targetWordsUsed.push(this.target);
+  }
+
+  public getComparisonAtIndex({ guess, index }: { guess: string; index: number }) {
+    return this.guessComparisons[guess][index];
   }
 }
