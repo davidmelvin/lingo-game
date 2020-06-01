@@ -40,7 +40,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## To-do
 
-- fix compare function
 - Make game loop (round numbers, score, timer)
 - improve performance with big words
 - improve performances for large multiplayer sessions
