@@ -12,6 +12,7 @@ export class GameState {
         this.isGameOver = false;
         this.guesses = Array();
         this.guessComparisons = {};
+        this.socket = {};
         this.totalRounds = totalRounds;
         this.wordLength = wordLength;
         this.updateTarget();

@@ -2,6 +2,7 @@
   <div>
     <h1 v-if="isGameOver">Game Over</h1>
     <div v-if="!isGameOver">
+      <h1>Test: {{ testTarget }}</h1>
       <h1>Round: {{ currRound }}/ {{ totalRounds }}</h1>
       <h1>Target: {{ target }}</h1>
       <ol>
@@ -32,12 +33,24 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import { COMPARISON, GuessComparison } from "../game-logic/compare";
 import { fiveLetterWords } from "../game-logic/words";
 import { GameState } from "../game-logic/gameLogic";
+import GameSetup from "../util/init";
 
 @Component
 export default class Game extends Vue {
   public currGuess: string = "";
   gameState = new GameState({ totalRounds: 2, wordLength: 5 });
+  gameSetup: GameSetup;
   public totalRounds = this.gameState.totalRounds;
+  get testTarget() {
+    return this.gameSetup.socketTarget;
+  }
+  created() {
+    this.gameSetup = new GameSetup();
+  }
+
+  mounted() {
+    // this.gameSetup.initGame();
+  }
 
   get currRound() {
     return this.gameState.currRoundNumber;

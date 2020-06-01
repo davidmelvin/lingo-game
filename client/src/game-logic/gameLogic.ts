@@ -18,6 +18,7 @@ export class GameState {
   public isGameOver = false;
   public guesses: string[] = Array();
   public guessComparisons: { [guess: string]: COMPARISON[] } = {};
+  socket = {};
 
   // TODO: don't repeat targets!
   private updateTarget() {
