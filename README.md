@@ -42,15 +42,18 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 - Scrabble word dictionaries from https://www.wordgamedictionary.com/twl06/download/twl06.txt, split and sorted using https://stackoverflow.com/a/5086405
 
-## To-do
+## Game Features to-do
 
-- Make game loop (round numbers, score, timer)
-- improve performance with big words
-- improve performances for large multiplayer sessions
-- graphics/styling
+- Make full game loop (round numbers, score, timer)
+- add a bot for fake simulated multiplayer
+- Improve graphics/visuals
 - input validation
-- add a bott for simulated multiplayer
-- store game state in database (maybe Firebase to fix disconnects)
-- http://buildnewgames.com/optimizing-websockets-bandwidth/
+
+## Developer-focused to-do
+
+- Can auto generated .js files be sent to a different directory to not clutter the src directory?
 - consider Redis for high availability if server crashes?
 - update gitignore to not include .js and .js.map
+- http://buildnewgames.com/optimizing-websockets-bandwidth/
+- store game state in database so disconnects are no big deal (consider Firebase)
+- improve performance for longer words and large multiplayer sessions
