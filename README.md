@@ -1,6 +1,10 @@
 # lingo
 
-## Project setup
+To test single player client, follow install and run serve as below. The server is under construction.
+
+```
+cd client
+````
 
 ```
 npm install
